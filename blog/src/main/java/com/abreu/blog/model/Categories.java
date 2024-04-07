@@ -11,4 +11,5 @@ public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    // TODO: Devo fazer um ENUM com categorias já pré-definidas?
 }

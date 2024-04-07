@@ -20,6 +20,4 @@ public class Pessoa {
     private String name;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    // TODO: BASE DE DADOS NÃO ESTÁ A ASSUMIR A STRING NO NOME
-
 }
