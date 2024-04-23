@@ -12,3 +12,5 @@ Spring Data JPA
 Lombok
 
 PostgresSQL
+
+ModelMapper (UserDtos to Users and vice-versa)
