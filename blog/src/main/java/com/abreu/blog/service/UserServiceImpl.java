@@ -1,49 +1,75 @@
 package com.abreu.blog.service;
 
 import com.abreu.blog.exceptions.ResourceNotFoundException;
-import com.abreu.blog.model.Pessoa;
+import com.abreu.blog.payload.UserDto;
 import lombok.AllArgsConstructor;
 import com.abreu.blog.model.User;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.abreu.blog.repository.UserRepository;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public Optional<User> getUser(int id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return repository.findAll();
-    }
-
-    @Override
-    public User save(User user) {
-        return repository.save(user);
-    }
-
-    @Override
-    public User update(int id, User user) {
-        User newUser = repository.findById(id).
+    public UserDto getUser(int id) {
+        User user = this.repository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("user","id",id));
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
-        newUser.setRole(user.getRole());
-        newUser.setPosts(user.getPosts());
-        return repository.save(newUser);
+
+        return this.userToDto(user);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+
+        List<User> users = this.repository.findAll();
+
+        return users.stream().map(this::userToDto).toList();
+    }
+
+    @Override
+    public UserDto save(UserDto userDto) {
+
+        User user = this.dtoToUser(userDto);
+        User savedUser = this.repository.save(user);
+
+        return this.userToDto(savedUser);
+    }
+
+    @Override
+    public UserDto update(int id, UserDto userDto) {
+        User user = repository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("user","id",id));
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
+        user.setPosts(userDto.getPosts());
+
+        User updatedUser = this.repository.save(user);
+        return this.userToDto(updatedUser);
     }
 
     @Override
     public void delete(int id) {
-        repository.deleteById(id);
+        User user = this.repository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("user","id",id));
+
+        repository.delete(user);
+    }
+
+
+    public User dtoToUser(UserDto userDto){
+        return this.modelMapper.map(userDto,User.class);
+    }
+
+    public UserDto userToDto(User user){
+        return this.modelMapper.map(user,UserDto.class);
     }
 }
+
+

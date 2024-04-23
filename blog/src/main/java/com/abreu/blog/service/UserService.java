@@ -1,13 +1,12 @@
 package com.abreu.blog.service;
 
-import com.abreu.blog.model.User;
+import com.abreu.blog.payload.UserDto;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    Optional<User> getUser(int id);
-    List<User> getAllUsers();
-    User save (User user);
-    User update (int id, User user);
+    UserDto getUser(int id);
+    List<UserDto> getAllUsers();
+    UserDto save (UserDto userDto);
+    UserDto update (int id, UserDto userDto);
     void delete (int id);
 }
