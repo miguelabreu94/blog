@@ -8,7 +8,7 @@ public interface PessoaService {
 
     Optional<Pessoa> getPessoa(int id);
     List<Pessoa> getAllPessoas();
-    Pessoa save (Pessoa user);
-    Pessoa update (Pessoa user);
+    Pessoa save (Pessoa pessoa);
+    Pessoa update (int id, Pessoa pessoa);
     void delete (int id);
 }

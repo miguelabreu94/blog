@@ -29,7 +29,7 @@ public class PessoaController {
 
     @PutMapping("/pessoa/{id}")
     public Pessoa update(@PathVariable int id, @RequestBody Pessoa pessoa) {
-        return service.update(pessoa);
+        return service.update(id,pessoa);
     }
 
     @DeleteMapping("/pessoa/{id}")

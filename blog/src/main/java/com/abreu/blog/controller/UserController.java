@@ -3,6 +3,7 @@ package com.abreu.blog.controller;
 import com.abreu.blog.model.User;
 import com.abreu.blog.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +32,10 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public User update(@PathVariable int id, @RequestBody User user) {
-        return service.update(user);
+        return service.update(id,user);
     }
 
-    @DeleteMapping("/book/{id}")
+    @DeleteMapping("/user/{id}")
     public void delete(@PathVariable int id) {
         service.delete(id);
     }

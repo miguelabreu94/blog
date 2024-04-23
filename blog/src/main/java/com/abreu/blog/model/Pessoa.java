@@ -17,7 +17,9 @@ public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String fullName;
+    private String bio;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
 }

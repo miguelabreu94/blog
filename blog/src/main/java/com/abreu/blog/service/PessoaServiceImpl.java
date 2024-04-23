@@ -1,5 +1,6 @@
 package com.abreu.blog.service;
 
+import com.abreu.blog.exceptions.ResourceNotFoundException;
 import com.abreu.blog.model.Pessoa;
 import com.abreu.blog.repository.PessoaRepository;
 import lombok.AllArgsConstructor;
@@ -30,8 +31,13 @@ public class PessoaServiceImpl implements PessoaService{
     }
 
     @Override
-    public Pessoa update(Pessoa pessoa) {
-        return repository.save(pessoa);
+    public Pessoa update(int id,Pessoa pessoa) {
+        Pessoa newPessoa = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("pessoa","id",id));
+        newPessoa.setBio(pessoa.getBio());
+        newPessoa.setGender(pessoa.getGender());
+        newPessoa.setFullName(pessoa.getFullName());
+        return repository.save(newPessoa);
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.abreu.blog.service;
 
+import com.abreu.blog.exceptions.ResourceNotFoundException;
+import com.abreu.blog.model.Pessoa;
 import lombok.AllArgsConstructor;
 import com.abreu.blog.model.User;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import com.abreu.blog.repository.UserRepository;
 import java.util.List;
@@ -29,8 +32,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        return repository.save(user);
+    public User update(int id, User user) {
+        User newUser = repository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("user","id",id));
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        newUser.setRole(user.getRole());
+        newUser.setPosts(user.getPosts());
+        return repository.save(newUser);
     }
 
     @Override
