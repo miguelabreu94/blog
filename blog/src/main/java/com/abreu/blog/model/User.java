@@ -20,7 +20,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
     @OneToMany
-    private List<Posts> posts;
+    private List<Post> posts;
     @Enumerated(EnumType.STRING)
     private Role role;
 

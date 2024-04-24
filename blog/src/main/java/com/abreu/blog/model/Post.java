@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,16 +14,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Posts {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 10000)
+    private String content;
+    @Column(length = 100,nullable = false)
+    private String title;
     @OneToMany
     private List<Comments> comments;
-    @OneToMany
-    private List<Categories> categories;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
+    @ManyToOne
     private User user; // TODO: Cada post terá apenas um autor (esse autor é considerado User ou Pessoa?)
     private LocalDateTime dateOfCreation;
 
