@@ -19,7 +19,7 @@ public class User {
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
     @Enumerated(EnumType.STRING)
     private Role role;
