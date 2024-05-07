@@ -1,5 +1,4 @@
 package com.abreu.blog.payload;
-
 import com.abreu.blog.model.Pessoa;
 import com.abreu.blog.model.Role;
 import lombok.AllArgsConstructor;

@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PostDto {
 
+    private int id;
     private String title;
     private String content;
     private List<Comments> comments;
