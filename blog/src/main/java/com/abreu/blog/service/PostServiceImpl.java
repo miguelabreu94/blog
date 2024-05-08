@@ -1,18 +1,23 @@
 package com.abreu.blog.service;
-
 import com.abreu.blog.exceptions.ResourceNotFoundException;
 import com.abreu.blog.model.Category;
 import com.abreu.blog.model.Post;
 import com.abreu.blog.model.User;
 import com.abreu.blog.payload.PostDto;
+import com.abreu.blog.payload.PostResponse;
 import com.abreu.blog.repository.CategoryRepository;
 import com.abreu.blog.repository.PostRepository;
 import com.abreu.blog.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -59,15 +64,38 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<PostDto> searchPosts(String keyword) {
-        return List.of();
+
+       List<Post> posts = this.postRepository.findByTitleContaining(keyword);
+       return posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<PostDto> getAllPosts() {
+    public PostResponse getAllPosts(int pageNumber, int pageSize, String sortBy, String sortDir) {
 
-        List<Post> allPosts =  this.postRepository.findAll();
+         Sort sort ;
+         if(sortDir.equalsIgnoreCase("asc")) {
+             sort = Sort.by(sortBy).ascending();
+         } else{
+             sort = Sort.by(sortBy).descending();
+         }
 
-        return allPosts.stream().map((post) -> this.modelMapper.map(post, PostDto.class)).toList();
+         Pageable p = PageRequest.of(pageNumber,pageSize,sort);
+
+         Page<Post> pagePost =  this.postRepository.findAll(p);
+         List<Post> allPosts = pagePost.getContent();
+
+         List<PostDto> postDtos = allPosts.stream().map((post) -> this.modelMapper.map(post, PostDto.class)).toList();
+
+         PostResponse postResponse = new PostResponse();
+
+         postResponse.setContent(postDtos);
+         postResponse.setPageNumber(pagePost.getNumber());
+         postResponse.setPageSize(pagePost.getSize());
+         postResponse.setTotalElements(pagePost.getTotalElements());
+         postResponse.setTotalPages(pagePost.getTotalPages());
+         postResponse.setLastPage(pagePost.isLast());
+
+        return postResponse;
     }
 
     @Override

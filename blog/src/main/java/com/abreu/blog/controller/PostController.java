@@ -1,6 +1,7 @@
 package com.abreu.blog.controller;
 import com.abreu.blog.payload.ApiResponse;
 import com.abreu.blog.payload.PostDto;
+import com.abreu.blog.payload.PostResponse;
 import com.abreu.blog.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,10 +37,14 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPost(){
-
-        List<PostDto> posts = this.postService.getAllPosts();
-        return new ResponseEntity<>(posts, HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPost(
+             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+             @RequestParam(value = "sortBy",defaultValue = "postId",required = false) String sortBy,
+             @RequestParam(value = "sortDir",defaultValue = "asc",required = false) String sortDir // ascendente
+             ) {
+        PostResponse postResponse = this.postService.getAllPosts(pageNumber,pageSize,sortBy,sortDir); //pageNumber começa no 0!!
+        return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 
     @GetMapping("/posts/{postId}")
@@ -63,5 +68,11 @@ public class PostController {
         return new ResponseEntity<>(updatePost, HttpStatus.OK);
     }
 
+    @GetMapping("posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable String keywords){
+
+        List <PostDto> result = this.postService.searchPosts(keywords);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 }
