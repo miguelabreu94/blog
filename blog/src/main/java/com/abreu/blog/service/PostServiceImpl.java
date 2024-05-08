@@ -110,6 +110,7 @@ public class PostServiceImpl implements PostService{
         post.setDateOfCreation(LocalDateTime.now());
         post.setUser(user);
         post.setCategory(category);
+        post.setImageName("default.png");
 
         Post newPost = this.postRepository.save(post);
 
@@ -124,6 +125,7 @@ public class PostServiceImpl implements PostService{
 
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
+        post.setImageName(postDto.getImageName());
 
         Post updatedPost = this.postRepository.save(post);
 

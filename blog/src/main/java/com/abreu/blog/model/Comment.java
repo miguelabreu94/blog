@@ -11,14 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comments {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(length = 5000)
-    private String comment;
+    private String content;
     @ManyToOne
     private Post post;
-    @OneToOne
-    private User user; // TODO: Cada comment terá apenas um autor (esse autor é considerado User ou Pessoa?)
 }

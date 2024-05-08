@@ -1,12 +1,13 @@
 package com.abreu.blog.payload;
 
-import com.abreu.blog.model.Comments;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,8 +17,9 @@ public class PostDto {
     private int id;
     private String title;
     private String content;
-    private List<Comments> comments;
+    private Set<CommentDTO> comments = new HashSet<>();
     private CategoryDto category;
     private UserDto user;
+    private String imageName;
     private LocalDateTime dateOfCreation;
 }
