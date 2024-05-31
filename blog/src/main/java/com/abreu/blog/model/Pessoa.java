@@ -19,7 +19,4 @@ public class Pessoa {
     private int id;
     private String fullName;
     private String bio;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
 }

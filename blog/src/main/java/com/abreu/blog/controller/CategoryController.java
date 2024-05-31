@@ -17,7 +17,7 @@ public class CategoryController {
     @GetMapping("/category/{id}")
     public ResponseEntity<CategoryDto> getCategory(@PathVariable int id) {
         CategoryDto categoryDto = categoryService.getCategory(id);
-        return new ResponseEntity<CategoryDto>(categoryDto, HttpStatus.OK);
+        return new ResponseEntity<>(categoryDto, HttpStatus.OK);
     }
 
     @GetMapping("/category")
@@ -34,7 +34,7 @@ public class CategoryController {
     @PutMapping("/category/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable int id, @RequestBody CategoryDto categoryDto) {
         CategoryDto updatedCategory = this.categoryService.updateCategory(categoryDto,id);
-        return new ResponseEntity<CategoryDto>(updatedCategory, HttpStatus.OK);
+        return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }
 
     @DeleteMapping("/category/{id}")

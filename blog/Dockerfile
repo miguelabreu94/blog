@@ -1,4 +1,5 @@
 FROM openjdk:21-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ./target/blog-0.0.1.jar app.jar
+VOLUME /tmp
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
 ENTRYPOINT["java","-jar","/app.jar"]

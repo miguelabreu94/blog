@@ -35,7 +35,6 @@ public class PessoaServiceImpl implements PessoaService{
         Pessoa newPessoa = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("pessoa","id",id));
         newPessoa.setBio(pessoa.getBio());
-        newPessoa.setGender(pessoa.getGender());
         newPessoa.setFullName(pessoa.getFullName());
         return repository.save(newPessoa);
     }

@@ -1,5 +1,4 @@
 package com.abreu.blog.service;
-
 import com.abreu.blog.exceptions.ResourceNotFoundException;
 import com.abreu.blog.payload.UserDto;
 import lombok.AllArgsConstructor;
@@ -47,7 +46,6 @@ public class UserServiceImpl implements UserService {
                 orElseThrow(() -> new ResourceNotFoundException("user","id",id));
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-        user.setRole(userDto.getRole());
         User updatedUser = this.repository.save(user);
         return this.userToDto(updatedUser);
     }

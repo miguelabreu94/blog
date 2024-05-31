@@ -4,12 +4,12 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name="users")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -23,5 +23,4 @@ public class User {
     private List<Post> posts;
     @Enumerated(EnumType.STRING)
     private Role role;
-
 }
