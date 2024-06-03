@@ -1,8 +1,10 @@
 package com.abreu.blog.service;
 
+import com.abreu.blog.model.Pessoa;
 import com.abreu.blog.model.Role;
 import com.abreu.blog.model.User;
 import com.abreu.blog.payload.ReqRes;
+import com.abreu.blog.repository.PessoaRepository;
 import com.abreu.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,9 @@ public class AuthServiceImpl {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -35,6 +40,12 @@ public class AuthServiceImpl {
             user.setUsername(registrationRequest.getUsername());
             user.setRole(Role.USER);
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+
+            Pessoa p1 = new Pessoa();
+            p1.setFullName(registrationRequest.getFullName());
+            p1.setBio(registrationRequest.getBio());
+            pessoaRepository.save(p1);
+            user.setPessoa(p1);
             User usersResult = userRepository.save(user);
             if (usersResult.getId()>0) {
                 resp.setUser((usersResult));

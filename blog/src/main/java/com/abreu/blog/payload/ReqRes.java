@@ -1,6 +1,4 @@
 package com.abreu.blog.payload;
-
-
 import com.abreu.blog.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,9 +17,11 @@ public class ReqRes {
     private String token;
     private String refreshToken;
     private String expirationTime;
-    private String role;
-    private String username;
-    private String password;
+    private String role; // user
+    private String username; // user
+    private String password; // user
+    private String fullName; // pessoa
+    private String bio; // pessoa
     private User user;
     private List<User> usersList;
 
