@@ -5,6 +5,8 @@ Creating a Blog that users can see posts and comment.
 
 Dependencies so far used:
 
+Spring Security with Jwt
+
 Spring Boot Starter Web
 
 Spring Data JPA
