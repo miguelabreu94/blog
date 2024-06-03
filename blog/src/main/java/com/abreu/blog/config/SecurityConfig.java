@@ -34,6 +34,7 @@ public class SecurityConfig {
                     registry.requestMatchers("auth/register/**").permitAll();
                     registry.requestMatchers("auth/login/**").permitAll();
                     registry.requestMatchers("/userId/{userId}/category/{categoryId}/posts").hasRole("ADMIN");
+                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
                     registry.requestMatchers("/**").authenticated();
                 })
                  .sessionManagement(session -> session
