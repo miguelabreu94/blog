@@ -8,6 +8,7 @@ import com.abreu.blog.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import static com.abreu.blog.model.Role.ADMIN;
 import static com.abreu.blog.model.Role.USER;
@@ -24,10 +25,13 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Pessoa p1 = new Pessoa();
         p1.setFullName("Miguel");
@@ -49,14 +53,14 @@ public class DataInitializer implements CommandLineRunner {
 
         User user1 = new User();
         user1.setUsername("admin");
-        user1.setPassword("password");
+        user1.setPassword(passwordEncoder.encode("password"));
         user1.setPessoa(p1);
         user1.setRole(ADMIN);
         userRepository.save(user1);
 
         User user2 = new User();
         user2.setUsername("user");
-        user2.setPassword("password");
+        user2.setPassword(passwordEncoder.encode("password"));
         user2.setPessoa(p2);
         user2.setRole(USER);
         userRepository.save(user2);
