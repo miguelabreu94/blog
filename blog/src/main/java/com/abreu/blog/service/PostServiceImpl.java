@@ -5,7 +5,7 @@ import com.abreu.blog.model.Post;
 import com.abreu.blog.model.User;
 import com.abreu.blog.payload.PostDto;
 import com.abreu.blog.payload.PostResponse;
-import com.abreu.blog.repository.CategoryRepository;
+import com.abreu.blog.repository.CommentRepository;
 import com.abreu.blog.repository.PostRepository;
 import com.abreu.blog.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,10 @@ public class PostServiceImpl implements PostService{
     private PostRepository postRepository;
     private ModelMapper modelMapper;
     private UserRepository userRepository;
+/*
     private CategoryRepository categoryRepository;
+*/
+    private CommentRepository commentRepository;
 
     @Override
     public PostDto getPostById(int postId) {
@@ -37,7 +40,7 @@ public class PostServiceImpl implements PostService{
         return this.modelMapper.map(post, PostDto.class);
     }
 
-    @Override
+/*    @Override
     public List<PostDto> getPostsByCategory(int categoryId) {
 
         Category category = this.categoryRepository.findById(categoryId)
@@ -47,7 +50,7 @@ public class PostServiceImpl implements PostService{
         return posts.stream()
                 .map((post) -> this.modelMapper.map(post, PostDto.class))
                 .toList();
-    }
+    }*/
 
     @Override
     public List<PostDto> getPostsByUser(int userId) {
@@ -99,18 +102,15 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public PostDto createPost(PostDto postDto,int userId, int categoryId) {
+    public PostDto createPost(PostDto postDto,int userId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
-
-        Category category = this.categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
 
         Post post = modelMapper.map(postDto, Post.class);
         post.setDateOfCreation(LocalDateTime.now());
         post.setUser(user);
-        post.setCategory(category);
-        post.setImageName("default.png");
+        post.setCategories(postDto.getCategories());
+        post.setImageName(postDto.getImageName());
 
         Post newPost = this.postRepository.save(post);
 
@@ -137,6 +137,8 @@ public class PostServiceImpl implements PostService{
 
         Post post = this.postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+
+        this.commentRepository.deleteByPostId(postId);
 
         this.postRepository.delete(post);
     }

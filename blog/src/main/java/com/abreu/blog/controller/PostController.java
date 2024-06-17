@@ -4,6 +4,7 @@ import com.abreu.blog.payload.ApiResponse;
 import com.abreu.blog.payload.PostDto;
 import com.abreu.blog.payload.PostResponse;
 import com.abreu.blog.service.FileService;
+import com.abreu.blog.service.FileServiceImpl;
 import com.abreu.blog.service.PostService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,18 @@ public class PostController {
     private PostService postService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private FileServiceImpl fileServiceImpl;
 
-    @PostMapping("/userId/{userId}/category/{categoryId}/posts")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable int userId, @PathVariable int categoryId) {
+    @CrossOrigin(origins = "http://localhost:3000/")
+    @PostMapping("/admin/{userId}/posts")
+    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable int userId) {
 
-        PostDto createPost = this.postService.createPost(postDto,userId,categoryId);
+        PostDto createPost = this.postService.createPost(postDto,userId);
         return new ResponseEntity<>(createPost, HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/user/{userId}/posts")
     public ResponseEntity<List<PostDto>> getPostsByUser(@PathVariable int userId){
 
@@ -43,13 +48,15 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
+   /* @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/category/{categoryId}/posts")
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable int categoryId){
 
         List<PostDto> posts = this.postService.getPostsByCategory(categoryId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
-    }
+    }*/
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPost(
              @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) int pageNumber,
@@ -69,11 +76,12 @@ public class PostController {
         return new ResponseEntity<>(postDto, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @DeleteMapping("/posts/{postId}")
-    public ApiResponse deletePost(@PathVariable int postId){
+    public ResponseEntity<ApiResponse> deletePost(@PathVariable int postId){
 
         this.postService.deletePost(postId);
-        return new ApiResponse("Post is successfully deleted!", true);
+        return new ResponseEntity<>(new ApiResponse("Post deleted successfully",true), HttpStatus.OK);
     }
 
     @PutMapping("/posts/{postId}")

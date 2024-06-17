@@ -1,5 +1,5 @@
 package com.abreu.blog.service;
-
+import jakarta.transaction.Transactional;
 import com.abreu.blog.model.Pessoa;
 import com.abreu.blog.model.Role;
 import com.abreu.blog.model.User;
@@ -32,10 +32,18 @@ public class AuthServiceImpl {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public ReqRes register(ReqRes registrationRequest){
         ReqRes resp = new ReqRes();
 
         try {
+
+            if (userRepository.existsByUsername(registrationRequest.getUsername())){
+                resp.setMessage("Username already in use");
+                resp.setStatusCode(400); // Bad request status code
+                return resp;
+            }
+
             User user = new User();
             user.setUsername(registrationRequest.getUsername());
             user.setRole(Role.USER);
@@ -62,7 +70,15 @@ public class AuthServiceImpl {
 
     public ReqRes login(ReqRes loginRequest){
         ReqRes response = new ReqRes();
+
         try {
+
+            if (!userRepository.existsByUsername(loginRequest.getUsername())){
+                response.setMessage("Username not found");
+                response.setStatusCode(400); // Bad request status code
+                return response;
+            }
+
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             var user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
@@ -74,6 +90,7 @@ public class AuthServiceImpl {
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24Hrs");
             response.setMessage("Successfully Logged In");
+            response.setUser(user);
 
         }catch (Exception e){
             response.setStatusCode(500);
