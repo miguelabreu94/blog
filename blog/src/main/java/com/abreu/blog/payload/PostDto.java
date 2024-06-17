@@ -1,5 +1,6 @@
 package com.abreu.blog.payload;
 
+import com.abreu.blog.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class PostDto {
     private String title;
     private String content;
     private Set<CommentDTO> comments = new HashSet<>();
-    private CategoryDto category;
+    private Set<Category> categories;
     private UserDto user;
     private String imageName;
     private LocalDateTime dateOfCreation;

@@ -33,10 +33,10 @@ public class PostController {
     private FileServiceImpl fileServiceImpl;
 
     @CrossOrigin(origins = "http://localhost:3000/")
-    @PostMapping("/admin/userId/{userId}/category/{categoryId}/posts")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable int userId, @PathVariable int categoryId) {
+    @PostMapping("/admin/{userId}/posts")
+    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable int userId) {
 
-        PostDto createPost = this.postService.createPost(postDto,userId,categoryId);
+        PostDto createPost = this.postService.createPost(postDto,userId);
         return new ResponseEntity<>(createPost, HttpStatus.CREATED);
     }
 
@@ -48,13 +48,13 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000/")
+   /* @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/category/{categoryId}/posts")
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable int categoryId){
 
         List<PostDto> posts = this.postService.getPostsByCategory(categoryId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
-    }
+    }*/
 
     @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/posts")

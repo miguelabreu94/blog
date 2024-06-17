@@ -24,9 +24,11 @@ public class Post {
     private String title;
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
-    @ManyToOne
-    @JoinColumn(name="category_id")
-    private Category category;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "post_categories", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "category", nullable = false)
+    private Set<Category> categories = new HashSet<>();
     @ManyToOne
     private User user; // TODO: Cada post terá apenas um autor (esse autor é considerado User ou Pessoa?)
     private String imageName;
