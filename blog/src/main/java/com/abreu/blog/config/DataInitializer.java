@@ -51,6 +51,12 @@ public class DataInitializer implements CommandLineRunner {
 
         categoryRepository.save(c1);
 
+        Category c2 = new Category();
+        c2.setCategoryTitle("BELEZA");
+        c2.setCategoryDescription("Beleza do blog");
+
+        categoryRepository.save(c2);
+
         User user1 = new User();
         user1.setUsername("admin");
         user1.setPassword(passwordEncoder.encode("password"));

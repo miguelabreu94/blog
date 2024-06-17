@@ -6,6 +6,7 @@ import com.abreu.blog.model.User;
 import com.abreu.blog.payload.PostDto;
 import com.abreu.blog.payload.PostResponse;
 import com.abreu.blog.repository.CategoryRepository;
+import com.abreu.blog.repository.CommentRepository;
 import com.abreu.blog.repository.PostRepository;
 import com.abreu.blog.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class PostServiceImpl implements PostService{
     private ModelMapper modelMapper;
     private UserRepository userRepository;
     private CategoryRepository categoryRepository;
+    private CommentRepository commentRepository;
 
     @Override
     public PostDto getPostById(int postId) {
@@ -110,7 +112,7 @@ public class PostServiceImpl implements PostService{
         post.setDateOfCreation(LocalDateTime.now());
         post.setUser(user);
         post.setCategory(category);
-        post.setImageName("default.png");
+        post.setImageName(postDto.getImageName());
 
         Post newPost = this.postRepository.save(post);
 
@@ -137,6 +139,8 @@ public class PostServiceImpl implements PostService{
 
         Post post = this.postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+
+        this.commentRepository.deleteByPostId(postId);
 
         this.postRepository.delete(post);
     }

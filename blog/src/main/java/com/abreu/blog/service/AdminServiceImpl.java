@@ -5,11 +5,17 @@ import com.abreu.blog.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl {
 
     private UserRepository userRepository;
+
+    public Optional<User> getUsersWithUserRole() {
+        return userRepository.findByRole(Role.USER);
+    }
 
     public User promoteAdmin(String username){
         User user = userRepository.findByUsername(username).orElseThrow();

@@ -13,12 +13,13 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/category/{id}")
     public ResponseEntity<CategoryDto> getCategory(@PathVariable int id) {
         CategoryDto categoryDto = categoryService.getCategory(id);
         return new ResponseEntity<>(categoryDto, HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/category")
     public ResponseEntity<List<CategoryDto>> getAll() {
         return ResponseEntity.ok(this.categoryService.getAllCategories());
