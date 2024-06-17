@@ -17,7 +17,6 @@ public class UserDto {
     @JsonIgnore
     private String password;
     private Pessoa pessoa;
-    //private List<Post> posts;
     private Role role;
 
 }

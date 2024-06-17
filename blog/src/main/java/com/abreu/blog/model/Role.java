@@ -1,6 +1,6 @@
 package com.abreu.blog.model;
 
 public enum Role {
-   USER,
+    USER,
     ADMIN
 }
