@@ -9,7 +9,7 @@ public enum Category {
     GASTRONOMIA,
     ECONOMIA,
     LIFESTYLE,
-    POLÍTICA,
+    POLITICA,
     FILMES,
     SÉRIES,
     SAÚDE,
