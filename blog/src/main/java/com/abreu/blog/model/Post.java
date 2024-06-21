@@ -33,6 +33,7 @@ public class Post {
     private User user; // TODO: Cada post terá apenas um autor (esse autor é considerado User ou Pessoa?)
     private String imageName;
     private LocalDateTime dateOfCreation;
+    private LocalDateTime dateOfLastModification;
 
 
 }
