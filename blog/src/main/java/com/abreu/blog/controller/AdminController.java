@@ -37,6 +37,18 @@ public class AdminController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000/")
+    @PostMapping("/promotemod/{username}")
+    public ResponseEntity<?> promoteToAdminMod(@PathVariable String username) {
+        try {
+            User updatedUser = adminService.promoteMod(username);
+            return ResponseEntity.ok(updatedUser);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:3000/")
     @PostMapping("/demote/{username}")
     public ResponseEntity<?> demoteToUser(@PathVariable String username) {
         try {
