@@ -51,7 +51,7 @@ mvn clean install
 - Backend application
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ---
