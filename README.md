@@ -31,13 +31,13 @@ The project is designed based on a set of business rules that govern the behavio
 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/blog-application-rumos.git
+git clone https://github.com/miguelabreu94/blog.git
 ```
 
 2. Open a terminal in the root directory of the project.
 
 ```bash
-cd blog-application-rumos
+cd blog
 ```
 
 3. Build the project
