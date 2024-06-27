@@ -84,6 +84,7 @@ public class PostController {
         return new ResponseEntity<>(new ApiResponse("Post deleted successfully",true), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @PutMapping("/posts/{postId}")
     public ResponseEntity<PostDto> updatePost(@PathVariable int postId, @RequestBody PostDto postDto){
 

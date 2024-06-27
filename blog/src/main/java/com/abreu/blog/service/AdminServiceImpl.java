@@ -24,6 +24,13 @@ public class AdminServiceImpl {
         return userRepository.save(user);
     }
 
+    public User promoteMod (String username){
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        user.setRole(Role.MOD);
+        return userRepository.save(user);
+    }
+
     public User demoteAdmin(String username){
         User user = userRepository.findByUsername(username).orElseThrow();
         user.setRole(Role.USER);

@@ -1,6 +1,5 @@
 package com.abreu.blog.service;
 import com.abreu.blog.exceptions.ResourceNotFoundException;
-import com.abreu.blog.model.Category;
 import com.abreu.blog.model.Post;
 import com.abreu.blog.model.User;
 import com.abreu.blog.payload.PostDto;
@@ -126,6 +125,7 @@ public class PostServiceImpl implements PostService{
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setImageName(postDto.getImageName());
+        post.setDateOfLastModification(LocalDateTime.now());
 
         Post updatedPost = this.postRepository.save(post);
 
