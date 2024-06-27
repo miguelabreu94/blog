@@ -56,6 +56,12 @@ docker-compose up -d
 
 ---
 
+# Swagger
+
+The application's API can be explored and tested using Swagger, accessible at http://localhost:8080/swagger-ui/index.html
+
+---
+
 ## User Application Credentials
 
 | Role  | Username        | Password  |
