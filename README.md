@@ -1,15 +1,13 @@
 # Blog Application (Rumos)
 
-The Blog project is a backend application with the porpuse of making an interactive blog. The project is using Java, Spring Boot and SQL (Postgres as Database).
-
-This Maven project uses PostgreSQL as Database and can be managed through docker and pgAdmin.
+The Blog Application (Rumos) is a robust backend application designed to facilitate an interactive blogging experience. This project leverages Java, Spring Boot, and PostgreSQL to create a dynamic and secure environment for users to create, manage, and interact with blog content. The project is configured as a Maven project, utilizing Docker for containerization and pgAdmin for database management.
 
 The application has 3 types of users: Admin, Moderator and Common User. For authentication and security, the applications uses JWT Token and Spring Security. 
 
 The application, upon starting, has a script to create 1 Admin and 1 user and those credentials can be found in this README file.
 To map the objects, the project uses Modelmapper library (for the DTOs).
 
-The project was based on several business model rules that can be found here:  [Enunciado Projeto_versao_react.pdf](https://github.com/miguelabreu94/blog/files/14890934/Enunciado.Projeto_versao_react.pdf)
+The project adheres to comprehensive business model rules outlined in the  [Enunciado Projeto_versao_react.pdf](https://github.com/miguelabreu94/blog/files/14890934/Enunciado.Projeto_versao_react.pdf)
 
 ---
 
@@ -17,12 +15,37 @@ The project was based on several business model rules that can be found here:  [
 
 - Java 21
 - Maven
+- Docker
+- pgAdmin (optional for database management)
+
+# Technology Stack
+- Backend: Java, Spring Boot
+- Database: PostgreSQL
+- Containerization: Docker
+- Database Management: pgAdmin
+- Security / Authentication: Spring Security, JWT Token
+- Object Mapping: ModelMapper
 
 ### How to Run the Application
 
-1. Open a terminal in the root directory of the project.
+1. Clone the Repository
 
-2. Run the following command to start the: 
+```bash
+git clone https://github.com/yourusername/blog-application-rumos.git
+```
+
+2. Open a terminal in the root directory of the project.
+
+```bash
+cd blog-application-rumos
+```
+
+3. Build the project
+```bash
+mvn clean install
+```
+
+4. Run the following command to start the: 
 - PostgreSQL database
 - pgAdmin application
 - Backend application
