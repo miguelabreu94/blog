@@ -7,7 +7,7 @@ The application has 3 types of users: Admin, Moderator and Common User. For auth
 The application, upon starting, has a script to create 1 Admin and 1 user and those credentials can be found in this README file.
 To map the objects, the project uses Modelmapper library (for the DTOs).
 
-The project adheres to comprehensive business model rules outlined in the  [Enunciado Projeto_versao_react.pdf](https://github.com/miguelabreu94/blog/files/14890934/Enunciado.Projeto_versao_react.pdf)
+The project is designed based on a set of business rules that govern the behavior and interactions within the application. These rules are detailed in the  [Enunciado Projeto_versao_react.pdf](https://github.com/miguelabreu94/blog/files/14890934/Enunciado.Projeto_versao_react.pdf)
 
 ---
 
