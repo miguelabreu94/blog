@@ -13,7 +13,7 @@ The project is designed based on a set of business rules that govern the behavio
 
 # Requirements
 
-- Java 21
+- Java 17+
 - Maven
 - Docker
 - pgAdmin (optional for database management)
