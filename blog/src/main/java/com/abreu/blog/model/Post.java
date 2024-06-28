@@ -34,6 +34,6 @@ public class Post {
     private String imageName;
     private LocalDateTime dateOfCreation;
     private LocalDateTime dateOfLastModification;
-
-
+    @Column(nullable = false)
+    private String slug;
 }

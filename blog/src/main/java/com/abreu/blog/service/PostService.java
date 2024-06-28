@@ -14,5 +14,6 @@ public interface PostService {
     PostResponse getAllPosts(int pageNumber, int pageSize, String sortBy, String sortDir);
     PostDto createPost(PostDto postDto,int userId);
     PostDto updatePost(int postId,PostDto postDto);
+    PostDto getPostBySlug(Long postId, String slug);
     void deletePost(int postId);
 }

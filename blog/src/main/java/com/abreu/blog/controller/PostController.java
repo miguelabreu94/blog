@@ -92,11 +92,12 @@ public class PostController {
         return new ResponseEntity<>(updatePost, HttpStatus.OK);
     }
 
-    @GetMapping("posts/search/{keywords}")
-    public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable String keywords){
+    @CrossOrigin(origins = "http://localhost:3000/")
+    @GetMapping("posts/{postId}/{slug}")
+    public ResponseEntity<PostDto> getPostBySlug(@PathVariable Long postId, @PathVariable String slug){
 
-        List <PostDto> result = this.postService.searchPosts(keywords);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        PostDto postDto = postService.getPostBySlug(postId, slug);
+        return new ResponseEntity<>(postDto, HttpStatus.OK);
     }
 
     @PostMapping("/post/image/upload/{postId}")
