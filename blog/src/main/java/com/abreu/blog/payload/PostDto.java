@@ -24,4 +24,5 @@ public class PostDto {
     private String imageName;
     private LocalDateTime dateOfCreation;
     private LocalDateTime dateOfLastModification;
+    private String slug;
 }

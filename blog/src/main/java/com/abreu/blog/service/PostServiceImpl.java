@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,6 +73,12 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public PostDto getPostBySlug(Long postId, String slug) {
+        Optional<Post> optionalPost = postRepository.findByIdAndSlug(postId, slug);
+        return this.modelMapper.map(optionalPost, PostDto.class);
+    }
+
+    @Override
     public PostResponse getAllPosts(int pageNumber, int pageSize, String sortBy, String sortDir) {
 
          Sort sort ;
@@ -108,11 +115,11 @@ public class PostServiceImpl implements PostService{
         Post post = modelMapper.map(postDto, Post.class);
         post.setDateOfCreation(LocalDateTime.now());
         post.setUser(user);
+        post.setSlug(generateSlug(postDto.getTitle()));
         post.setCategories(postDto.getCategories());
         post.setImageName(postDto.getImageName());
 
         Post newPost = this.postRepository.save(post);
-
         return this.modelMapper.map(newPost, PostDto.class);
     }
 
@@ -125,6 +132,7 @@ public class PostServiceImpl implements PostService{
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setImageName(postDto.getImageName());
+        post.setSlug(generateSlug(postDto.getTitle()));
         post.setDateOfLastModification(LocalDateTime.now());
 
         Post updatedPost = this.postRepository.save(post);
@@ -141,5 +149,9 @@ public class PostServiceImpl implements PostService{
         this.commentRepository.deleteByPostId(postId);
 
         this.postRepository.delete(post);
+    }
+
+    private String generateSlug(String title) {
+        return title.toLowerCase().replaceAll("\\s+", "-");
     }
 }
