@@ -36,4 +36,7 @@ public class Post {
     private LocalDateTime dateOfLastModification;
     @Column(nullable = false)
     private String slug;
+    private LocalDateTime scheduledDate; // New field for scheduled publication date
+    @OneToMany(mappedBy = "post")
+    private Set<Favorite> favorites;
 }
