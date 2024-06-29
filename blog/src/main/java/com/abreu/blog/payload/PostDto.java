@@ -25,4 +25,5 @@ public class PostDto {
     private LocalDateTime dateOfCreation;
     private LocalDateTime dateOfLastModification;
     private String slug;
+    private LocalDateTime scheduledDate;
 }

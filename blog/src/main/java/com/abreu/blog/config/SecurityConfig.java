@@ -41,6 +41,7 @@ public class SecurityConfig {
                     registry.requestMatchers("/posts/**").permitAll();
                     registry.requestMatchers("/comments/**").permitAll();
                     registry.requestMatchers("/posts/**").permitAll();
+                    registry.requestMatchers("/favorites/**").permitAll();
                     registry.requestMatchers("**").permitAll();
                     registry.requestMatchers("/**").authenticated();
                 })

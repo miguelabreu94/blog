@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BlogApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="JDBC_DATABASE_PASSWORD" value="12345" />
+      <env name="JDBC_DATABASE_URL" value="jdbc:postgresql://localhost:5432/postgres" />
+      <env name="JDBC_DATABASE_USERNAME" value="postgres" />
+    </envs>
+    <module name="blog" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.abreu.blog.BlogApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
