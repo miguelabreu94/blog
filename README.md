@@ -66,8 +66,8 @@ The application's API can be explored and tested using Swagger, accessible at ht
 
 | Role  | Username        | Password  |
 |-------|-----------------|-----------|
-| Admin | admin           | password  |
-| User  | user            | password  |
+| Admin | labreu          | password  |
+| User  | jabreu          | password  |
 
 ---
 
