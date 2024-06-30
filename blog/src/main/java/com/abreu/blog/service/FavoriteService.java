@@ -56,6 +56,7 @@ public class FavoriteService {
         favoriteRepository.delete(favorite);
     }
 
+    @Transactional
     public boolean isFavorite(int userId, int postId) {
         User user = userRepository.findById(userId).orElse(null);
         Post post = postRepository.findById(postId).orElse(null);
@@ -65,6 +66,7 @@ public class FavoriteService {
         return favoriteRepository.findByUserAndPost(user, post).isPresent();
     }
 
+    @Transactional
     public long countFavoritesByPost(int postId) {
         Post post = postRepository.findById(postId).orElse(null);
         if (post == null) {
@@ -73,6 +75,7 @@ public class FavoriteService {
         return favoriteRepository.countByPost(post);
     }
 
+    @Transactional
     public List<PostDto> getFavoritePostsByUser(int userId) {
         List<Favorite> favorites = favoriteRepository.findByUser_Id(userId);
         favorites.sort(Comparator.comparing(Favorite::getDateAdded).reversed());
@@ -80,6 +83,8 @@ public class FavoriteService {
                 .map(favorite -> modelMapper.map(favorite.getPost(), PostDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Transactional
     public List<PostDto> getFavoritePostsByUserByNumberOfFav(int userId) {
         List<Favorite> favorites = favoriteRepository.findByUser_Id(userId);
         Map<Post, Long> postFavoriteCount = favorites.stream()
@@ -91,8 +96,8 @@ public class FavoriteService {
                 .map(Map.Entry::getKey)
                 .toList();
 
-        return favorites.stream()
-                .map(favorite -> modelMapper.map(favorite.getPost(), PostDto.class))
+        return sortedPosts.stream()
+                .map(post -> modelMapper.map(post, PostDto.class))
                 .collect(Collectors.toList());
     }
 

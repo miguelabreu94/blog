@@ -79,10 +79,9 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:3000/")
     @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<ApiResponse> deletePost(@PathVariable int postId){
-
-        this.postService.deletePost(postId);
-        return new ResponseEntity<>(new ApiResponse("Post deleted successfully",true), HttpStatus.OK);
+    public ResponseEntity<Void> deletePost(@PathVariable int postId) {
+        postService.deletePost(postId);
+        return ResponseEntity.noContent().build();
     }
 
     @CrossOrigin(origins = "http://localhost:3000/")

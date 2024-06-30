@@ -7,6 +7,7 @@ import com.abreu.blog.payload.PostResponse;
 import com.abreu.blog.repository.CommentRepository;
 import com.abreu.blog.repository.PostRepository;
 import com.abreu.blog.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -141,6 +142,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    @Transactional
     public void deletePost(int postId) {
 
         Post post = this.postRepository.findById(postId)

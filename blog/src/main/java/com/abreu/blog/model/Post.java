@@ -37,6 +37,6 @@ public class Post {
     @Column(nullable = false)
     private String slug;
     private LocalDateTime scheduledDate; // New field for scheduled publication date
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Favorite> favorites;
 }
